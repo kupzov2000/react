@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOMClient from 'react-dom/client';
+
 import App from './App.tsx';
 import './index.css';
+import GetFilms from './components/GetFilms.tsx';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+const root = ReactDOMClient.createRoot(document.getElementById('root')!);
+
+GetFilms('Star Wars')
+  .then((data) => {
+    console.log('Данные:', data);
+    root.render(<App data={data} />);
+  })
+  .catch((err) => {
+    console.log('Ошибка при получении данных о людях:', err);
+  });
