@@ -1,5 +1,8 @@
 async function GetFilms(searchFilm: string) {
   const searchFilmName = searchFilm.trim().split(' ').join('%20');
+  if (searchFilm && searchFilm !== 'Star Wars') {
+    localStorage.setItem('movieName', searchFilm);
+  }
 
   const url = `https://www.omdbapi.com/?s=${searchFilmName}&apikey=7f6f12ba`;
 

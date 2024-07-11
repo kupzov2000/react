@@ -6,11 +6,14 @@ import GetFilms from './components/GetFilms.tsx';
 
 const root = ReactDOMClient.createRoot(document.getElementById('root')!);
 
-GetFilms('Star Wars')
+const moviesLS = localStorage.getItem('movieName');
+const movieSearch = moviesLS ? moviesLS : 'Star Wars';
+
+GetFilms(movieSearch)
   .then((data) => {
-    console.log('Данные:', data);
+    // console.log('Данные:', data);
     root.render(<App data={data} />);
   })
   .catch((err) => {
-    console.log('Ошибка при получении данных о людях:', err);
+    console.log('Ошибка при получении данных:', err);
   });
