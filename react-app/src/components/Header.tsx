@@ -1,30 +1,29 @@
 import { ChangeEvent, Component } from 'react';
 import { SiThemoviedatabase } from 'react-icons/si';
-import GetFilms from './GetFilms';
-import MainComp from './MainComp';
+import { HeaderProps, StateHeader } from '../types/types';
 
-class Header extends Component {
-  state = {
-    searchItem: '',
-    filmsData: null,
-  };
+class Header extends Component<HeaderProps, StateHeader> {
+  constructor(props: HeaderProps) {
+    super(props);
+    this.state = {
+      searchItem: '',
+      filmsData: null,
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({ searchItem: event.target.value || '' });
   };
 
-  handleSearch = async () => {
-    try {
-      const data = await GetFilms(this.state.searchItem);
-      this.setState({ filmsData: data });
-    } catch (error) {
-      console.log('Ошибка при получении данных:', error);
-      this.setState({ filmsData: null });
-    }
-  };
+  handleClick() {
+    localStorage.setItem('movieName', this.state.searchItem);
+    this.props.handleFn();
+  }
 
   render() {
-    const { searchItem, filmsData } = this.state;
+    const { searchItem } = this.state;
 
     return (
       <header className="header">
@@ -38,12 +37,11 @@ class Header extends Component {
               value={searchItem}
               onChange={this.handleInputChange}
             />
-            <button type="button" className="header-search-btn" onClick={this.handleSearch}>
+            <button type="button" className="header-search-btn" onClick={this.handleClick}>
               Search
             </button>
           </div>
         </div>
-        {filmsData && <MainComp data={filmsData} />}
       </header>
     );
   }

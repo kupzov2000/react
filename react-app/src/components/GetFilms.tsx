@@ -1,7 +1,8 @@
-async function GetFilms(searchFilm: string) {
+async function GetFilms() {
+  const searchFilm = localStorage.getItem('movieName') || 'Star Wars';
   const searchFilmName = searchFilm.trim().split(' ').join('%20');
-  if (searchFilm && searchFilm !== 'Star Wars') {
-    localStorage.setItem('movieName', searchFilm);
+  if (searchFilm !== 'Star Wars') {
+    localStorage.setItem('movieName', searchFilmName);
   }
 
   const url = `https://www.omdbapi.com/?s=${searchFilmName}&apikey=7f6f12ba`;
@@ -14,6 +15,7 @@ async function GetFilms(searchFilm: string) {
     }
 
     const data = await response.json();
+
     return data;
   } catch (err) {
     console.log('Ошибка запроса:', err);

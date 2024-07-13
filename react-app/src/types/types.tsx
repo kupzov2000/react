@@ -1,4 +1,4 @@
-interface SearchMovie {
+export interface SearchMovie {
   Poster: string;
   Title: string;
   Year: string;
@@ -14,5 +14,18 @@ export interface DataMovies {
 }
 
 export type MainProps = {
-  data: DataMovies;
+  data?: DataMovies;
 };
+
+export interface HeaderProps {
+  handleFn: () => Promise<void>;
+}
+
+export interface StateHeader {
+  searchItem: string;
+  filmsData: null;
+}
+
+export interface FilmsData {
+  data: null | DataMovies;
+}
