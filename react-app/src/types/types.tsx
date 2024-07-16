@@ -21,11 +21,4 @@ export interface HeaderProps {
   handleFn: () => Promise<void>;
 }
 
-export interface StateHeader {
-  searchItem: string;
-  filmsData: null;
-}
-
-export interface FilmsData {
-  data: null | DataMovies;
-}
+export type StateApp = DataMovies | null;
